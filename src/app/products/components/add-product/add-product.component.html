@@ -1,0 +1,64 @@
+<form [formGroup]="form">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <label for="">Title</label>
+            <input 
+            type="text"  
+            class="form-control"
+            formControlName="title" 
+            placeholder="title"
+            >
+            <span *ngIf="(isSubmitted && form.get('title')?.errors?.['required']) ||
+                            (!form.get('title')!.valid && form.get('title')!.touched)">required</span>
+            
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <label for="">Price</label>
+            <input 
+            type="number" 
+            class="form-control" 
+            formControlName="price" 
+            placeholder="price"
+            >
+            <span *ngIf="form.get('price')!.valid&&form.get('price')!.value<1">enter valid price</span>
+            <span *ngIf="!form.get('price')!.valid && form.get('price')!.touched ||
+                        !form.get('price')!.valid && isSubmitted">required</span>
+        </div>
+    
+        <div class="col-md-4 col-sm-12">
+            <app-select  [select]="form.value.category" [title]="'categories'" [data]="categories" (selection)="getCategory($event)"></app-select>
+            <span *ngIf="(categoryName==='' || categoryName==='all') && isSubmitted">required</span>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <label for="">Image</label>
+            <img src="{{base64}}" alt="">
+            <input type="file" class="form-control" (change)="getImagePath($event)">
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <label for="">Description</label>
+            <textarea 
+            type="text" 
+            class="form-control" 
+            formControlName="description" 
+            placeholder="type here .. "
+            required
+            ></textarea>
+            <span *ngIf="(isSubmitted && form.get('description')?.errors?.['required']) ||
+            (!form.get('description')!.valid && form.get('description')!.touched)">required</span>
+
+        </div>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-success"[disabled]="
+              (AddOrUpdate === 'Update' && ( form.get('title')!.value === title &&
+                                             form.get('description')!.value === description &&
+                                             form.get('image')!.value === image &&
+                                             form.get('category')!.value === category &&
+                                             form.get('price')!.value === price)) 
+              ||
+              (AddOrUpdate === 'Add')&&(!form.valid ||(form.valid &&categoryName==='all'))"
+
+                 (click)="UpdateOrAdd()">{{AddOrUpdate}} Product</button>
+                <button class="btn btn-danger" (click)="Back()">Back</button>
+            </div>
+    </div>
+</form>

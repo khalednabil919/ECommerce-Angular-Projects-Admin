@@ -1,0 +1,28 @@
+<div class="cartBox">
+    <button class="btn btn-primary" type="button" (click)="AddProduct()">Add Product</button>
+    <table class="table table-striped" *ngIf="!loading">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>category</th>
+                <th>price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of products;let i = index">
+                <td><img src="{{item.image}}"></td>
+                <td>{{item.title}} </td>
+                <td>
+                    {{item.category}}
+                </td>
+                <td>{{item.price}}</td>
+                <td><button class="btn btn-warning" (click)="Update(item)">Update</button></td>
+            </tr>
+        </tbody>
+   
+    </table>
+    <div class="text-center w-100" *ngIf="loading">
+        <app-spinner-shared></app-spinner-shared>
+    </div>
+</div>

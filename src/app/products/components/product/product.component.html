@@ -1,0 +1,19 @@
+    <div class="item">
+        <div (click)="route(item.id)">
+
+            <img src="{{item.image}}" alt="">
+            <div class="body">
+                <h4>{{item.title}}</h4>
+                <p>{{item.description}}</p>
+            </div>
+        </div>
+
+        <div class="px-3 mb-2 d-flex justify-content-between align-items-center ">
+            <button class="btn btn-success" *ngIf ="!disable" (click)="disable=true">Add To Cart</button>
+            <div class="d-flex w-75" *ngIf="disable">
+                <input type="number" class="form-control" [(ngModel)]="amount"  #amount1>
+                <button class="btn btn-danger"(click)="addToCart()">add amount</button>
+            </div>
+            <span>{{item.price  }} L.E</span>
+        </div>
+    </div>

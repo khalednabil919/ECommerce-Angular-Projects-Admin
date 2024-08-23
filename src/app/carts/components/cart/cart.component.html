@@ -1,0 +1,55 @@
+<div class="cartBox">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="">Start Date</label>
+                <input 
+                type="date"
+                class="form-control"
+                formControlName="start"
+                required
+                >
+                <span *ngIf="!signupForm.get('start')?.valid && buttonClicked" >StartDate is Required</span>
+            </div>
+            <div class="col-md-3">
+                <label for="">End Date</label>
+                <input 
+                type="date" 
+                class="form-control"
+                formControlName="end"
+                required
+                >
+                <span *ngIf="!signupForm.get('end')?.valid && buttonClicked" >EndDate is Required</span>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-success" type="submit">Apply</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data;let i = index">
+                <td></td>
+                <td>{{item.date| date:"longDate"}} </td>
+                <td>
+                    {{item.products.length}}
+                </td>
+                <td>
+                    <button class="btn btn-danger" type="button" (click)="Delete(item.id)">Delete</button>
+                    <button class="btn btn-primary" (click)="view(item.id,i)">View</button>
+                </td>
+            </tr>
+        </tbody>
+   
+    </table>
+</div>
+<div class="alert alert-success" role="alert"><strong>Well done!</strong> Your Order is Successfully Send</div>
